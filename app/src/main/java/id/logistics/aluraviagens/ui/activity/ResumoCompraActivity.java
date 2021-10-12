@@ -1,14 +1,14 @@
 package id.logistics.aluraviagens.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static id.logistics.aluraviagens.ui.activity.PacoteActivityConstantes.CHAVE_PACOTE;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
+import androidx.appcompat.app.AppCompatActivity;
 
 import id.logistics.aluraviagens.R;
 import id.logistics.aluraviagens.model.Pacote;
@@ -28,13 +28,25 @@ public class ResumoCompraActivity extends AppCompatActivity {
 
         setTitle(TITULO_APPBAR);
 
-        Pacote pacoteSP = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
+        carregaPacoteRecebido();
 
-        mostraLocal(pacoteSP);
-        mostraImagem(pacoteSP);
-        mostraData(pacoteSP);
-        mostraPreco(pacoteSP);
+    }
 
+    private void carregaPacoteRecebido() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
+            inicializaCampos(pacote);
+
+        }
+    }
+
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraData(pacote);
+        mostraPreco(pacote);
     }
 
     private void mostraPreco(Pacote pacote) {
